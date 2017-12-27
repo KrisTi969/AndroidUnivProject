@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,13 +36,25 @@ import java.util.Random;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 import static java.net.Proxy.Type.HTTP;
 
 /**
  * Created by crys_ on 01.12.2017.
  */
 
-public class LoginPage extends Activity {
+public class LoginPage extends AppCompatActivity {
+
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    public String postUrl= "http://10.0.2.2:8080/login";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,20 +68,77 @@ public class LoginPage extends Activity {
 
             public void onClick(View v) {
                 JSONObject jsonObject = new JSONObject();
-                String s1 = user.getText().toString();
-                String s2 = pass.getText().toString();
-                Log.v(String.valueOf(1),s1);
-                Log.v(String.valueOf(2),s2);
-                AsyncT asyncT = new AsyncT();
-                asyncT.execute(s1,s2);
+                ///String s1 = user.getText().toString();
+               // String s2 = pass.getText().toString();
+                //Log.v(String.valueOf(1),s1);
+                //Log.v(String.valueOf(2),s2);
+                /*AsyncT asyncT = new AsyncT();
+                asyncT.execute(s1,s2);*/
                 try {
-                    asyncT.getPostDataString(jsonObject);
-                } catch (Exception e) {
+                    jsonObject.put("username",user.getText().toString());
+                    jsonObject.put("password",pass.getText().toString());
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                try {
+                    postRequest(postUrl,jsonObject.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
+            void postRequest(String postUrl,String postBody) throws IOException {
+
+                OkHttpClient client = new OkHttpClient();
+                RequestBody body= RequestBody.create(JSON ,postBody);
+                final Request request = new Request.Builder()
+                        .url(postUrl)
+                        .post(body)
+                        .build();
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        call.cancel();
+                    }
+
+                    @Override
+                    public void onResponse(Call call, final Response response) throws IOException {
+                        final String myResponse = response.body().string();
+                        LoginPage.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String name = "";
+                                JSONObject object = new JSONObject();
+                                try {
+                                    object = new JSONObject(myResponse);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                String n = "";
+                                try {
+                                    n = object.getString("message");
+                                    Log.v(String.valueOf(1),n);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                if(n.equals("true")) {
+                                    startActivity(new Intent(LoginPage.this, MainActivity.class));
+                                }
+
+                                //txtString.setText(myResponse);
+                            }
+                        });
+
+                    }
+                });
+            }
+
         });
+
     }
+
+
 
     class AsyncT extends AsyncTask<String, Void, Void> {
 
@@ -119,28 +190,6 @@ public class LoginPage extends Activity {
                 e.printStackTrace();
             }
             return null;
-        }
-
-        public String getPostDataString(JSONObject params) throws Exception {
-            System.out.print("primim");
-            StringBuilder result = new StringBuilder();
-            boolean first = true;
-
-            Iterator<String> itr = params.keys();
-
-            while(itr.hasNext()){
-
-                String key= itr.next();
-                Object value = params.get(key);
-                if (first)
-                    first = false;
-                else
-                    result.append("&");
-                result.append(URLEncoder.encode(key, "UTF-8"));
-                result.append("=");
-                result.append(URLEncoder.encode(value.toString(), "UTF-8"));
-            }
-            return result.toString();
         }
 
     }

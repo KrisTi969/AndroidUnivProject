@@ -34,26 +34,26 @@
         android:ems="10"
         android:id="@+id/editName"
         android:textStyle="bold|italic"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:hint="Enter Name"
-        android:gravity="center_vertical|center" />
+        android:gravity="center_vertical|center"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:textColor="@color/colorTitle"
         android:text="@string/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="14dp"
         android:id="@+id/textView2"
         android:textStyle="bold|italic"
         android:textSize="18sp"
-        android:layout_below="@+id/editName"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:gravity="center"
-        android:hint="Enter Password" />
+        android:hint="Enter Password"
+        android:layout_below="@+id/editName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:textColor="@color/colorTitle"
@@ -73,16 +73,16 @@
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/editPass"
-        android:layout_marginLeft="28dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="18dp"
         android:onClick="addUser"
         android:text="@string/add_user"
         android:textSize="18sp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_below="@+id/editPass"
+        android:layout_alignLeft="@+id/editText3"
+        android:layout_alignStart="@+id/editText3" />
 
     <Button
         android:text="@string/update"
@@ -91,10 +91,10 @@
         android:id="@+id/button3"
         android:onClick="update"
         android:textStyle="normal|bold"
-        android:layout_marginTop="19dp"
-        android:layout_alignTop="@+id/editText3"
-        android:layout_alignLeft="@+id/button4"
-        android:layout_alignStart="@+id/button4" />
+        android:layout_alignBaseline="@+id/editText3"
+        android:layout_alignBottom="@+id/editText3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -104,10 +104,10 @@
         android:id="@+id/editText6"
         android:freezesText="false"
         android:hint="Enter Name to Delete Data"
-        android:layout_above="@+id/button5"
-        android:layout_alignLeft="@+id/editText5"
-        android:layout_alignStart="@+id/editText5"
-        android:layout_marginBottom="13dp" />
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/button3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:text="@string/delete"
@@ -117,10 +117,9 @@
         android:onClick="delete"
         android:textStyle="normal|bold"
         tools:ignore="RelativeOverlap"
-        android:layout_alignBaseline="@+id/editText6"
         android:layout_alignBottom="@+id/editText6"
-        android:layout_toRightOf="@+id/editText6"
-        android:layout_toEndOf="@+id/editText6" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -139,19 +138,19 @@
         android:hint="Current Name" />
 
     <EditText
+        android:id="@+id/editPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:layout_marginTop="11dp"
-        android:id="@+id/editPass"
-        android:hint="Enter Password"
-        android:gravity="center_vertical|center"
-        android:textSize="18sp"
-        android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="11dp"
+        android:ems="10"
+        android:gravity="center_vertical|center"
+        android:hint="Enter Date"
+        android:inputType="date"
         android:textAllCaps="false"
+        android:textSize="18sp"
         android:textStyle="normal|bold" />
 
     <EditText
@@ -171,8 +170,21 @@
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText6"
+        android:text="View All Entries"
+        android:layout_below="@+id/editText6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/buttonServer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recommandations"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/editText6"
-        android:text="View All Entries" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

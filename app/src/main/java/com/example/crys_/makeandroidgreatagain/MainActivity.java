@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     EditText Name, Pass, updateold, updatenew, delete;
     myDbAdapter adapter;
     Button view_all_button;
+    Button server_button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,11 +24,21 @@ public class MainActivity extends AppCompatActivity {
         updateold = (EditText) findViewById(R.id.editText3);
         updatenew = (EditText) findViewById(R.id.editText5);
         delete = (EditText) findViewById(R.id.editText6);
+
         view_all_button = (Button) findViewById(R.id.button5);
         view_all_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this,ViewUsers.class));
+            }
+        });
+
+        server_button = (Button) findViewById(R.id.buttonServer);
+        server_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,ViewRecommandations.class));
+
             }
         });
 
