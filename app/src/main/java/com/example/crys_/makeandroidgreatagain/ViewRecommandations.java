@@ -67,7 +67,7 @@ import static java.net.Proxy.Type.HTTP;
 public class ViewRecommandations extends AppCompatActivity {
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    public String postUrl = "http://10.0.2.2:8080/getRecFromServer";
+    public final String postUrl = "http://10.0.2.2:8080/getRecFromServer";
     public List<Recomandations> list = new ArrayList<>();
     public Integer id = 0;
     Recomandations r1 = new Recomandations(1,"TheFlash111","20-12-2032");
@@ -88,10 +88,7 @@ public class ViewRecommandations extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(ViewRecommandations.this,  (list.get(position)).toString(), Toast.LENGTH_SHORT).show();
-
-
                 //
-
                 Log.i("Send email", "");
                 String[] TO = {""};
                 String[] CC = {""};
@@ -102,7 +99,7 @@ public class ViewRecommandations extends AppCompatActivity {
                 emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
                 emailIntent.putExtra(Intent.EXTRA_CC, CC);
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Remember to watch" + (list.get(position)).toString());
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Remember to watch" + (list.get(position)).toString() + "!");
 
                 try {
                     startActivity(Intent.createChooser(emailIntent, "Send mail..."));

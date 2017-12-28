@@ -64,9 +64,9 @@
         android:textSize="18sp"
         android:onClick="viewdata"
         android:textStyle="bold|italic"
-        android:layout_above="@+id/editText3"
-        android:layout_alignRight="@+id/button4"
-        android:layout_alignEnd="@+id/button4" />
+        android:layout_above="@+id/editText5"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
 
@@ -91,8 +91,7 @@
         android:id="@+id/button3"
         android:onClick="update"
         android:textStyle="normal|bold"
-        android:layout_alignBaseline="@+id/editText3"
-        android:layout_alignBottom="@+id/editText3"
+        android:layout_above="@+id/button4"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -104,10 +103,10 @@
         android:id="@+id/editText6"
         android:freezesText="false"
         android:hint="Enter Name to Delete Data"
-        android:layout_marginTop="17dp"
-        android:layout_below="@+id/button3"
+        android:layout_above="@+id/button5"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="22dp" />
 
     <Button
         android:text="@string/delete"
@@ -126,16 +125,13 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_marginTop="47dp"
         android:id="@+id/editText3"
         android:textStyle="bold|italic"
         android:textSize="14sp"
-        android:layout_below="@+id/loginButton"
+        android:hint="Current Name"
+        android:layout_above="@+id/editText6"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="7dp"
-        android:layout_marginStart="7dp"
-        android:hint="Current Name" />
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/editPass"
@@ -162,18 +158,19 @@
         android:textStyle="bold|italic"
         android:textSize="14sp"
         android:hint="New Name"
-        android:layout_alignBottom="@+id/button3"
-        android:layout_alignLeft="@+id/editText3"
-        android:layout_alignStart="@+id/editText3" />
+        android:layout_below="@+id/loginButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="View All Entries"
-        android:layout_below="@+id/editText6"
+        android:layout_above="@+id/buttonServer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginBottom="13dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 

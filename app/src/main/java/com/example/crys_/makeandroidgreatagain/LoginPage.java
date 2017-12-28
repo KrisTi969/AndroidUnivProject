@@ -67,23 +67,31 @@ public class LoginPage extends AppCompatActivity {
             final EditText pass = (EditText) findViewById(R.id.pass);
 
             public void onClick(View v) {
-                JSONObject jsonObject = new JSONObject();
-                ///String s1 = user.getText().toString();
-               // String s2 = pass.getText().toString();
-                //Log.v(String.valueOf(1),s1);
-                //Log.v(String.valueOf(2),s2);
+                String t1 = user.getText().toString();
+                String t2 = pass.getText().toString();
+                if(t1.isEmpty() || t2.isEmpty()) {
+                    ToastMessage.message(getApplicationContext(),"Introduceti atat userul, cat si parola");
+
+                }
+                else {
+                    JSONObject jsonObject = new JSONObject();
+                    ///String s1 = user.getText().toString();
+                    // String s2 = pass.getText().toString();
+                    //Log.v(String.valueOf(1),s1);
+                    //Log.v(String.valueOf(2),s2);
                 /*AsyncT asyncT = new AsyncT();
                 asyncT.execute(s1,s2);*/
-                try {
-                    jsonObject.put("username",user.getText().toString());
-                    jsonObject.put("password",pass.getText().toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    postRequest(postUrl,jsonObject.toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    try {
+                        jsonObject.put("username", user.getText().toString());
+                        jsonObject.put("password", pass.getText().toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        postRequest(postUrl, jsonObject.toString());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
@@ -125,7 +133,9 @@ public class LoginPage extends AppCompatActivity {
                                 if(n.equals("true")) {
                                     startActivity(new Intent(LoginPage.this, MainActivity.class));
                                 }
-
+                                if(n.equals("false")) {
+                                    Toast.makeText(LoginPage.this, "Account does not exist!", Toast.LENGTH_SHORT).show();
+                                }
                                 //txtString.setText(myResponse);
                             }
                         });
