@@ -93,7 +93,6 @@ public class LoginPage extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-
             }
             void postRequest(String postUrl,String postBody) throws IOException {
 
@@ -176,6 +175,7 @@ public class LoginPage extends AppCompatActivity {
                 wr.flush();
                 wr.close();
                 Log.v(String.valueOf(1),"Se trimite");
+
             /// Partea de primire de la server
 
                 int responseCode=httpURLConnection.getResponseCode();

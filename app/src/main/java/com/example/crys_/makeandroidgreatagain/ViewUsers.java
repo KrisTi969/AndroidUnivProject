@@ -16,6 +16,7 @@ import java.util.Collections;
 
 import database.myDbAdapter;
 
+
 /**
  * Created by crys_ on 08.11.2017.
  */
@@ -32,6 +33,8 @@ public class ViewUsers extends Activity{
         ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(arrayAdapter);
     }
+
+
     public void print() {
         String dataALL = "";
         myDbAdapter adapter = new myDbAdapter(this);

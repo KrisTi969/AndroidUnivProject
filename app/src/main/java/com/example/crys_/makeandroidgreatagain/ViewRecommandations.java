@@ -70,112 +70,71 @@ public class ViewRecommandations extends AppCompatActivity {
     public final String postUrl = "http://10.0.2.2:8080/getRecFromServer";
     public List<Recomandations> list = new ArrayList<>();
     public Integer id = 0;
-    Recomandations r1 = new Recomandations(1,"TheFlash111","20-12-2032");
-    Recomandations r2 = new Recomandations(2,"Westworld111","20-12-2011");
+    Recomandations r1 = new Recomandations(1, "TheFlash111", "20-12-2032");
+    Recomandations r2 = new Recomandations(2, "Westworld111", "20-12-2011");
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         list.add(r1);
         list.add(r2);
         super.onCreate(savedInstanceState);
+        list = populate();
         setContentView(R.layout.view_recommandations);
-        final ArrayAdapter arrayAdapter = new ArrayAdapter<>(this,R.layout.activity_list_view_rec,list);
+        final ArrayAdapter arrayAdapter = new ArrayAdapter<>(this, R.layout.activity_list_view_rec, list);
         final ListView listView = (ListView) findViewById(R.id.list_view_rec);
         listView.setAdapter(arrayAdapter);
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ViewRecommandations.this,  (list.get(position)).toString(), Toast.LENGTH_SHORT).show();
-                //
-                Log.i("Send email", "");
-                String[] TO = {""};
-                String[] CC = {""};
-                Intent emailIntent = new Intent(Intent.ACTION_SEND);
-
-                emailIntent.setData(Uri.parse("mailto:"));
-                emailIntent.setType("text/plain");
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-                emailIntent.putExtra(Intent.EXTRA_CC, CC);
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Remember to watch" + (list.get(position)).toString() + "!");
-
-                try {
-                    startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-                    finish();
-                    Log.i("Finished sending email", "");
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(ViewRecommandations.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
-                }
-
-                ///
-            }
-        });
-
-
-        Button submitButton = (Button) findViewById(R.id.button_get_from_serv);
-
-        submitButton.setOnClickListener(new View.OnClickListener() {
-
-
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            public void onClick(View v) {
-
-                String result;
-                JSONObject jsonObject = new JSONObject();
-                ///String s1 = user.getText().toString();
-                // String s2 = pass.getText().toString();
-                //Log.v(String.valueOf(1),s1);
-                //Log.v(String.valueOf(2),s2);
-                /*AsyncT asyncT = new AsyncT();
-                asyncT.execute(s1,s2);*/
-                HttpGetRequest getRequest = new HttpGetRequest();
-
-                try {
-                    list.clear(); /// stergem lista
-                    result = getRequest.execute(postUrl).get();
-                    Log.v("1", result);
-
-                    InputStream stream = new ByteArrayInputStream(result.getBytes(StandardCharsets.UTF_8.name()));
-                    JsonReader jsonreader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
-                    String text = null;
-                    String date = null;
-                    jsonreader.beginArray();
-                    while (jsonreader.hasNext()) {
-                        jsonreader.beginObject();
-                        for(int i = 0; i< 2;i++) {
-                            String name = jsonreader.nextName();
-                            switch (name) {
-                                case "name":
-                                    text = jsonreader.nextString();
-                                    break;
-                                case "first_aired":
-                                    date = jsonreader.nextString();
-                                    break;
-                            }
-                        }
-                        list.add(new Recomandations(id, text, date));
-                        id += 1;
-                        jsonreader.endObject();
-                    }
-                    jsonreader.endArray();
-
-                    listView.setAdapter(arrayAdapter); // reimporspamtam lista
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        });
-
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public List<Recomandations> populate() {
+        String result;
+        JSONObject jsonObject = new JSONObject();
+        ///String s1 = user.getText().toString();
+        // String s2 = pass.getText().toString();
+        //Log.v(String.valueOf(1),s1);
+        //Log.v(String.valueOf(2),s2);
+                /*AsyncT asyncT = new AsyncT();
+                asyncT.execute(s1,s2);*/
+        HttpGetRequest getRequest = new HttpGetRequest();
+
+        try {
+            list.clear(); /// stergem lista
+            result = getRequest.execute(postUrl).get();
+            Log.v("1", result);
+            InputStream stream = new ByteArrayInputStream(result.getBytes(StandardCharsets.UTF_8.name()));
+            JsonReader jsonreader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
+            String text = null;
+            String date = null;
+            jsonreader.beginArray();
+            while (jsonreader.hasNext()) {
+                jsonreader.beginObject();
+                for (int i = 0; i < 2; i++) {
+                    String name = jsonreader.nextName();
+                    switch (name) {
+                        case "name":
+                            text = jsonreader.nextString();
+                            break;
+                        case "first_aired":
+                            date = jsonreader.nextString();
+                            break;
+                    }
+                }
+                list.add(new Recomandations(id, text, date));
+                id += 1;
+                jsonreader.endObject();
+            }
+            jsonreader.endArray();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

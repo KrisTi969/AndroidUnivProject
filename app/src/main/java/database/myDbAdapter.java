@@ -43,22 +43,22 @@ public class myDbAdapter {
         return buffer.toString();
     }
 
-    public  int delete(String uname)
+    /*public  int delete(String uname)
     {
         SQLiteDatabase db = myhelper.getWritableDatabase();
         String[] whereArgs ={uname};
 
         int count =db.delete(myDbHelper.TABLE_NAME ,myDbHelper.NAME+" = ?",whereArgs);
         return  count;
-    }
+    }*/
 
     public int updateName(String oldName , String newName)
     {
         SQLiteDatabase db = myhelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(myDbHelper.NAME,newName);
+        contentValues.put(myDbHelper.TEXT,newName);
         String[] whereArgs= {oldName};
-        int count =db.update(myDbHelper.TABLE_NAME,contentValues, myDbHelper.NAME+" = ?",whereArgs );
+        int count =db.update(myDbHelper.TABLE_NAME,contentValues, myDbHelper.TEXT+" = ?",whereArgs );
         return count;
     }
 
@@ -67,11 +67,14 @@ public class myDbAdapter {
         private static final String DATABASE_NAME = "myDatabase";    // Database Name
         private static final String TABLE_NAME = "myTable";   // Table Name
         private static final int DATABASE_Version = 1;    // Database Version
-        private static final String UID="_id";     // Column I (Primary Key)
-        private static final String NAME = "Name";    //Column II
-        private static final String MyPASSWORD= "Password";    // Column III
+        private static final String UID="id";     // Column I (Primary Key)
+        private static final String TEXT = "text";    //Column II
+        private static final String STATUS= "status";    // Column III
+        private static final String UPDATED= "updated";    // Column IV
+        private static final String VERSION= "version";    // Column V
         private static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+
-                " ("+UID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+NAME+" VARCHAR(255) ,"+ MyPASSWORD+" VARCHAR(225));";
+                " ("+UID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+TEXT+" VARCHAR(255) ,"+ STATUS+" VARCHAR(225)" +
+                "                                                    "+UPDATED+" VARCHAR(255) ,"+ VERSION+" VARCHAR(225));";
         private static final String DROP_TABLE ="DROP TABLE IF EXISTS "+TABLE_NAME;
         private Context context;
 
@@ -81,7 +84,6 @@ public class myDbAdapter {
         }
 
         public void onCreate(SQLiteDatabase db) {
-
             try {
                 db.execSQL(CREATE_TABLE);
             } catch (Exception e) {

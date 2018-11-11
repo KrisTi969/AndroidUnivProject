@@ -17,52 +17,17 @@ import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 
-import database.myDbAdapter;
+
 
 public class MainActivity extends AppCompatActivity {
-    EditText Name, Pass, updateold, updatenew, delete;
-    myDbAdapter adapter;
+
     Button view_all_button;
-    Button server_button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.notification_icon)
-                        .setContentTitle("CORNFLIX")
-                        .setDefaults(Notification.DEFAULT_ALL)
-                        .setContentText("Check some statistics !")
-                        .setPriority(NotificationManager.IMPORTANCE_HIGH);
-
-
-        Intent resultIntent = new Intent(this, BarChartActivity.class);
-// Because clicking the notification opens a new ("special") activity, there's
-// no need to create an artificial back stack.
-        PendingIntent resultPendingIntent =
-                PendingIntent.getActivity(
-                        this,
-                        0,
-                        resultIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-
-        mBuilder.setContentIntent(resultPendingIntent);
-
-// Sets an ID for the notification
-        int mNotificationId = 001;
-// Gets an instance of the NotificationManager service
-        NotificationManager mNotifyMgr =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-// Builds the notification and issues it.
-        mNotifyMgr.notify(mNotificationId, mBuilder.build());
 
 /////
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Name = (EditText) findViewById(R.id.editName);
-        Pass = (EditText) findViewById(R.id.editPass);
-        updateold = (EditText) findViewById(R.id.editText3);
-        updatenew = (EditText) findViewById(R.id.editText5);
-        delete = (EditText) findViewById(R.id.editText6);
 
         view_all_button = (Button) findViewById(R.id.button5);
         view_all_button.setOnClickListener(new View.OnClickListener() {
@@ -72,19 +37,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        server_button = (Button) findViewById(R.id.buttonServer);
-        server_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,ViewRecommandations.class));
-
-            }
-        });
-
-        adapter = new myDbAdapter(this);
     }
-
-    public void addUser(View view)
+   /* public void addUser(View view)
     {
         String t1 = Name.getText().toString();
         String t2 = Pass.getText().toString();
@@ -106,14 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 Pass.setText("");
             }
         }
-    }
+    }*/
 
-    public void viewdata(View view) {
-        String data = adapter.getData();
-        ToastMessage.message(this,data);
-    }
 
-    public void update(View view)
+/*    public void update(View view)
     {
         String u1 = updateold.getText().toString();
         String u2 = updatenew.getText().toString();
@@ -135,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
                 updatenew.setText("");
             }
         }
-    }
+    }*/
 
-    public void delete( View view)
+   /* public void delete( View view)
     {
         String uname = delete.getText().toString();
         if(uname.isEmpty())
@@ -157,8 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 delete.setText("");
             }
         }
-    }
-
+    }*/
 
 
 }
